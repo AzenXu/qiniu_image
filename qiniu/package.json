@@ -1,0 +1,17 @@
+{
+  "name": "qiniu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "qiniu.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "babel": "babel-node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "qiniu": "^7.1.5",
+    "request": "^2.85.0"
+  }
+}
