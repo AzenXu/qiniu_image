@@ -1,13 +1,24 @@
-import upload from "./qiniu_upload";
-import download from "./image_download";
+import upload from "./src/qiniu_upload";
+import download from "./src/image_download";
 
-// upload('/tmp/downimage.png',(result) => {
-//     console.log('====================================');
-//     console.log(result);
-//     console.log('====================================');
-// });
+var clip = (content) => {
+    var exec = require('child_process').exec;
+    var shell = 'echo ' + content + ' | pbcopy';
+    console.log(shell);
+    exec(shell, function (err, stdout, stderr) {
+        if (err) throw err;
+        console.log(stdout);
+    })
+}
 
-var result = download('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1525937302833&di=e7e524afe2789fa1f2d93aafa91e5275&imgtype=0&src=http%3A%2F%2Fimg5.duitang.com%2Fuploads%2Fblog%2F201308%2F19%2F20130819132414_csjyr.thumb.700_0.png');
-console.log('====================================');
-console.log(result);
-console.log('====================================');
+const image_url = process.argv[2];
+download(image_url, '/tmp/qiniu.png', (image_cache_path) => {
+    console.log('下载完成');
+    console.log(image_cache_path);
+    upload(image_cache_path, (qiniu_url) => {
+        console.log('上传完成');
+        console.log(qiniu_url);
+        //  将上传后的图片url添加到剪切板
+        clip(qiniu_url);
+    });
+});
