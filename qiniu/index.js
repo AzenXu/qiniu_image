@@ -18,7 +18,9 @@ if (upload_type === 1) {
         });
     });
 } else if (upload_type === 2) {
-    upload(image_url, (qiniu_url) => {
+    let image_desktop_path = '/Users/azen/Desktop' + image_url;
+    console.log('准备上传' + image_desktop_path);
+    upload(image_desktop_path, (qiniu_url) => {
         console.log('上传完成');
         console.log(qiniu_url);
         //  将上传后的图片url添加到剪切板
